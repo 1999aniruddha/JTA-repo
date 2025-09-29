@@ -38,7 +38,8 @@ resource "aws_instance" "web" {
     Name = "web-app-server"
   }
 }
- {
-  value = aws_instance.web.public_ip
+ 
+ { value = aws_instance.web.public_ip
 }
+terraform validate
 
