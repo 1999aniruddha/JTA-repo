@@ -39,7 +39,12 @@ resource "aws_instance" "web" {
   }
 }
  
- { value = aws_instance.web.public_ip
+ output "web_server_ip" {
+  value = aws_instance.web.public_ip
 }
-terraform validate
+
+
+resource "aws_instance" "web" {
+  # your config here
+}
 
