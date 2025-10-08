@@ -6,15 +6,18 @@ pipeline {
         PRIVATE_KEY_PATH = '~/.ssh/mykey.pem'
     }
 
-    stages {
-        stage('Terraform Apply') {
-            steps {
-                dir('terraform') {
-                    sh 'terraform init'
-                    sh 'terraform apply -auto-approve -var "key_name=mykey"'
-                }
-            }
+    stage('Terraform Apply') {
+    steps {
+        dir('terraform') {
+            sh 'terraform init'
+            // Remove any stale locks
+            sh 'rm -f .terraform/terraform.tfstate.lock.info || true'
+            // Apply
+            sh 'terraform apply -auto-approve -var "key_name=mykey"'
         }
+    }
+}
+
 
         stage('Ansible Deploy') {
             steps {
