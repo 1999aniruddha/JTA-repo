@@ -1,4 +1,3 @@
-
 - name: Configure Web Server
   hosts: web
   become: yes
@@ -8,7 +7,7 @@
         name: httpd
         state: present
 
-    - name: Start Apache
+    - name: Ensure Apache is started and enabled
       service:
         name: httpd
         state: started
@@ -18,3 +17,7 @@
       copy:
         src: ../app/index.html
         dest: /var/www/html/index.html
+        owner: root
+        group: root
+        mode: '0644'
+

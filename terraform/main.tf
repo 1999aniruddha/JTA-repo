@@ -10,7 +10,7 @@ resource "aws_security_group" "web_sg" {
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
+    cidr_blocks = ["0.0.0.0/0"]   # NOTE: restrict to your IP in production
   }
 
   ingress {
@@ -29,15 +29,16 @@ resource "aws_security_group" "web_sg" {
 }
 
 resource "aws_instance" "web" {
-  ami           = "ami-0c02fb55956c7d316"
-  instance_type = var.instance_type
-  key_name      = var.key_name
+  ami                    = "ami-0c02fb55956c7d316"
+  instance_type          = var.instance_type
+  key_name               = var.key_name
   vpc_security_group_ids = [aws_security_group.web_sg.id]
 
   tags = {
     Name = "web-app-server"
   }
 }
+
  
  
 
